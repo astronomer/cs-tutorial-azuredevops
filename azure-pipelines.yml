@@ -1,9 +1,11 @@
 trigger:
 - main
 
-# variables:
-#  group: Variable-Group
-# - group: Key-Vault-Group
+pr: none
+
+#variables:
+#- group: Variable-Group
+#- group: Key-Vault-Group
 
 stages:
 - stage: build
@@ -13,8 +15,7 @@ stages:
       vmImage: 'Ubuntu-latest'
     steps:
     - script: |
-    echo "Building container.."
-    docker build -t registry.aws.solutions.astronomer-sandbox.io/meteoroidal-ecliptic-6881/airflow:$CI_PIPELINE_ID .
-    docker login registry.aws.solutions.astronomer-sandbox.io -u _ -p $DEPLOYMENT_SERVICE_ACCOUNT_KEY
-    docker push registry.aws.solutions.astronomer-sandbox.io/meteoroidal-ecliptic-6881/airflow:$CI_PIPELINE_ID
-
+        echo "Building container.."
+        docker build -t registry.$(BASE-DOMAIN)/$(RELEASE-NAME)/airflow:$(Build.SourceVersion) .
+        docker login registry.$(BASE-DOMAIN) -u _ -p $(SVC-ACCT-KEY)
+        docker push registry.$(BASE-DOMAIN)/$(RELEASE-NAME)/airflow:$(Build.SourceVersion)
