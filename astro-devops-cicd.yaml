@@ -8,14 +8,12 @@ pr: none
 #- group: Key-Vault-Group
 
 stages:
-- stage: build
+- stage: deploy
   jobs:
-  - job: run_build
+  - job: deploy_image
     pool:
       vmImage: 'Ubuntu-latest'
     steps:
     - script: |
-        echo "Building container.."
-        docker build -t registry.$(BASE-DOMAIN)/$(RELEASE-NAME)/airflow:$(Build.SourceVersion) .
-        docker login registry.$(BASE-DOMAIN) -u _ -p $(SVC-ACCT-KEY)
-        docker push registry.$(BASE-DOMAIN)/$(RELEASE-NAME)/airflow:$(Build.SourceVersion)
+        curl -sSL install.astronomer.io | sudo bash -s
+        astro deploy
