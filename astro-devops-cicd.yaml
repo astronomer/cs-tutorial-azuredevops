@@ -3,10 +3,6 @@ trigger:
 
 pr: none
 
-#variables:
-#- group: Variable-Group
-#- group: Key-Vault-Group
-
 stages:
 - stage: deploy
   jobs:
