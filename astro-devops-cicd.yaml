@@ -17,3 +17,6 @@ stages:
     - script: |
         curl -sSL install.astronomer.io | sudo bash -s
         astro deploy
+      env:
+        ASTRONOMER_KEY_ID: $(ASTRONOMER_KEY_ID)
+        ASTRONOMER_KEY_SECRET: $(ASTRONOMER_KEY_SECRET)
